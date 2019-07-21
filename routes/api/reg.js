@@ -23,31 +23,35 @@ router.post('/', (req, res, next) => {
   // console.log('reg',req.file);// multer === dest  req.files   multer ===storage req.file
   //引入路径
   let configPath = require('../../config/path')
-  if (!req.file && req.files.length > 0) {
-    if (req.files.length == 1) {
-      //改名 整合路径 存到 icon
-      fs.renameSync(
-        req.files[0].path,
-        req.files[0].path + pathLib.parse(req.files[0].originalname).ext
-      )
-      icon = configPath.user.uploadUrl + req.files[0].filename + pathLib.parse(req.files[0].originalname).ext;
-    } else if (req.files.length > 1) {
-      icon = []
-      req.files.forEach((v, i, s) => {
+  // req.files使用时需要格式form-data
+  if(req.files){
+    if (!req.file && req.files.length > 0) {
+      if (req.files.length == 1) {
         //改名 整合路径 存到 icon
         fs.renameSync(
-          v.path,
-          v.path + pathLib.parse(v.originalname).ext
+          req.files[0].path,
+          req.files[0].path + pathLib.parse(req.files[0].originalname).ext
         )
-        icon.push(configPath.user.uploadUrl + v.filename + pathLib.parse(v.originalname).ext)
-      })
+        icon = configPath.user.uploadUrl + req.files[0].filename + pathLib.parse(req.files[0].originalname).ext;
+      } else if (req.files.length > 1) {
+        icon = []
+        req.files.forEach((v, i, s) => {
+          //改名 整合路径 存到 icon,
+          fs.renameSync(
+            v.path,
+            v.path + pathLib.parse(v.originalname).ext
+          )
+          icon.push(configPath.user.uploadUrl + v.filename + pathLib.parse(v.originalname).ext)
+        })
+      }
+  
+      // icon = '/upload/user/' + req.files[0].filename + pathLib.parse(req.files[0].originalname).ext;
+  
+    } else {
+      icon = configPath.normal;
     }
-
-    // icon = '/upload/user/' + req.files[0].filename + pathLib.parse(req.files[0].originalname).ext;
-
-  } else {
+  }else{
     icon = configPath.normal;
-    // icon = '/upload/noimage.png';
   }
   // 兜库校验username/password 
   mgdb({
@@ -93,8 +97,6 @@ router.post('/', (req, res, next) => {
         }
       })
   })
-
-
 })
-
+//一个报错的接口，是无效的接口，不能被运用
 module.exports = router;

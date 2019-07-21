@@ -16,8 +16,8 @@ let findList = ({ apiname, req, res }) => {
   // let qq = q ? {[title|_ip]:eval('/'+q+'/')} :{}
   //apiname为输入的内容/home|follow|column
   mgdb({
-    url:'mongodb://127.0.0.1:27017',      //可以不传，可以传
-    dbName:'newsapp',                     //可以不传默认访问newsapp，也可以传，传了，访问传的数据库
+    url: 'mongodb://127.0.0.1:27017',      //可以不传，可以传
+    dbName: 'newsapp',                     //可以不传默认访问newsapp，也可以传，传了，访问传的数据库
     collectionName: apiname
   }, (collection, client) => {
     collection.find(qq, {
@@ -48,7 +48,7 @@ let findDetail = ({ apiname, req, res, _id }) => {
         // console.log('id',result)
         if (!err) {
           result.length > 0 ?
-            res.send({ err: 0, msg: '成功', data: result[0] }, '数据') :
+            res.send({ err: 0, msg: '成功', data: result[0]}) :
             res.send({ err: 1, msg: '查无数据' })
 
         } else {
@@ -63,7 +63,7 @@ router.get('/', (req, res, next) => {
   // console.log('product',req.rootParams)
   let apiname = req.rootParams;//home|follow|column|banner|bulala
   let _id = req.query._id;;//asdfadsfaf||undefined
-  if (eval('/'+productAll+'/').test(apiname)) {
+  if (eval('/^(' + productAll + ')$/').test(apiname)) {
     // console.log('productAll',eval('/'+productAll+'/'))
     if (_id) findDetail({ req, res, _id, apiname })
     else findList({ req, res, apiname })
@@ -76,8 +76,11 @@ router.get('/:_id', (req, res, next) => {
   // console.log('product',req.rootParams)
   let apiname = req.rootParams;
   let _id = req.params._id;
-
-  if (eval('/'+productAll+'/').test(apiname)) {
+  if (_id.length != 24) {
+    res.send({ err: 1, msg: '_id长度不是12byte' })
+    return;
+  }
+  if (eval('/^(' + productAll + ')$/').test(apiname)) {
     findDetail({ req, res, _id, apiname })
   } else {
     next();
