@@ -62,6 +62,7 @@ let findDetail = ({ apiname, req, res, _id }) => {
 router.get('/', (req, res, next) => {
   // console.log('product',req.rootParams)
   let apiname = req.rootParams;//home|follow|column|banner|bulala
+  console.log(productAll)
   let _id = req.query._id;;//asdfadsfaf||undefined
   if (eval('/^(' + productAll + ')$/').test(apiname)) {
     // console.log('productAll',eval('/'+productAll+'/'))

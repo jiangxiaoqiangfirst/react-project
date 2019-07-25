@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 //跨域中间件的配置,允许端口http://127.0.0.1:5000，访问
 app.use(cors({
-  "origin": ["http://127.0.0.1:5000"],
+  "origin": ["http://127.0.0.1:5500"],
   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
   'allowedHeaders':['Content-Type','Authorization']
 }))
