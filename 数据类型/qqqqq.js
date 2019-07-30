@@ -1,11 +1,10 @@
 // banner：
 [
     {
-        "id":1,
         "title": "代码笔记📒",
         "sub_title": "1",
         "banner": "xxxx",
-        "time": 234234,
+        "time": 1564455841107,
         "detail": {
             "auth": "mochangba",
             "content": `获取两个数之间的随机数function getRandom(n,m) {

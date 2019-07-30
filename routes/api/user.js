@@ -7,9 +7,9 @@ router.get('/',(req,res,next)=>{
   }else{
     mgdb({
       collectionName:'user'
-    },(collection,client)=>{
+    },(collection,client,ObjectID)=>{
       collection.find({
-        _id:req.session['newsapp_user_session']
+        _id:ObjectID(req.session['newsapp_user_session'])
       },{
         projection:{username:0,password:0}
       }).toArray((err,result)=>{
