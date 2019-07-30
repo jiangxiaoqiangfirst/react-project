@@ -18,13 +18,13 @@ router.post('/', (req, res, next) => {
   let fans = 0;
   let time = Date.now();//生成注册时间
   password = bcrypt.hashSync(password, 10); //给密码加密🔐
-  nikename = nikename || '昵称，系统给的，要借用第三库'; //借助第三方昵称生成库
+  nikename = nikename || '大师兄'; //借助第三方昵称生成库
 
   // console.log('reg',req.file);// multer === dest  req.files   multer ===storage req.file
   //引入路径
   let configPath = require('../../config/path')
   // req.files使用时需要格式form-data
-  if(req.files){
+  if (req.files) {
     if (!req.file && req.files.length > 0) {
       if (req.files.length == 1) {
         //改名 整合路径 存到 icon
@@ -44,13 +44,13 @@ router.post('/', (req, res, next) => {
           icon.push(configPath.user.uploadUrl + v.filename + pathLib.parse(v.originalname).ext)
         })
       }
-  
+
       // icon = '/upload/user/' + req.files[0].filename + pathLib.parse(req.files[0].originalname).ext;
-  
+
     } else {
       icon = configPath.normal;
     }
-  }else{
+  } else {
     icon = configPath.normal;
   }
   // 兜库校验username/password 
@@ -66,7 +66,7 @@ router.post('/', (req, res, next) => {
           //代表数据库中已有该用户名数据
           if (result.length > 0) {
             //不通过 返回错误信息
-            res.send({ err: 1, msg: '用户名已存在' })
+            res.send({ err: 2, msg: '用户名已存在' })
             if (Array.isArray(icon)) {
               icon.forEach((v, i, s) => {
                 //删除multer存进来的图片，记事本等文件
@@ -84,7 +84,9 @@ router.post('/', (req, res, next) => {
             }, (err, result) => {
               if (!err) {
                 // req.session[key]=result.insertedId
-                res.send({ err: 1, msg: '注册成功', data: result.ops[0] })
+                console.log(result.ops)
+                delete result.ops[0].password;
+                res.send({ err: 0, msg: '注册成功', data: result.ops[0] })
               } else {
                 res.send({ err: 1, msg: 'user集合操作失败' })
                 client.close()

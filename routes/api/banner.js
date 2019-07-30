@@ -20,7 +20,7 @@ router.get('/',(req,res,next)=>{
     }).toArray((err,result)=>{
       // console.log('err',err)
       if(!err){
-        res.send({err:1,msg:'成功',data:result})
+        res.send({err:0,msg:'成功',data:result})
       }
     })
   })

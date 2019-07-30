@@ -34,7 +34,7 @@ router.post('/', (req, res, next) => {
               //这里种下用户的id,方便验证提取id,用id访问mongodb 用户数据
               //session会去读前端cookie里面的数据，然后与后台的session进行匹配
               req.session['newsapp_user_session'] = userdata._id
-              res.send({ err: 1, msg: '登录成功', data: userdata })
+              res.send({ err: 0, msg: '登录成功', data: userdata })
             } else {
               res.send({ err: 1, msg: '用户名或者密码有误' })
             }
