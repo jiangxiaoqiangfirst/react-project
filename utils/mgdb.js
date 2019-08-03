@@ -5,7 +5,7 @@ let ObjectID = mongodb.ObjectID; //mongodb数据库配置的id对象
 //箭头函数参数写的有点长，可以行
 module.exports = ({
   url='mongodb://127.0.0.1:27017', //要连接的mongodb数据库
-  dbName = 'newsapp',    //要连接的数据库
+  dbName = 'sole',    //要连接的数据库
   collectionName         //要连接的数据表
 },callback) => {    //回调函数的简写
   //创建链接

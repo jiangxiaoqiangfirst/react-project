@@ -42,7 +42,7 @@ let storage = multer.diskStorage({
       cb(null, path.join(__dirname, 'public', require('./config/path').user.uploadUrl))
     } else if (req.url.indexOf('banner') !== -1) {
       cb(null, path.join(__dirname, 'public', require('./config/path').banner.uploadUrl))
-    } else if (req.url.indexOf('product') !== -1) {
+    } else if (req.url.indexOf('product') !== -1 ||req.url.indexOf('home') !== -1 || req.url.indexOf('follow') !== -1 || req.url.indexOf('column') !== -1) {
       cb(null, path.join(__dirname, 'public', require('./config/path').product.uploadUrl))
     } else {
       cb(null, path.join(__dirname, 'public', require('./config/path').normal))
@@ -53,11 +53,12 @@ let multerObj = multer({ storage });
 // let multerObj = multer({dest:'字符路径'}); //存储方式dest指定死了，storage分目录
 app.use(multerObj.any())
 
-
+app.all('/admin/*', require('./routes/admin/params'))
 //响应
 //ADMIN
 app.use('/admin/banner', require('./routes/admin/banner')); //交给前端渲染
-// app.use('/admin/banner', require('./routes/admin/bannerr'));//交给后的渲染  挂了，调试，需要
+app.use('/admin/:product', require('./routes/admin/product')); //交给前端渲染
+
 
 //API  拦截，后面跟函数，函数内要使用管道函数next();
 //配置全局变量，

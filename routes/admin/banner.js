@@ -10,7 +10,7 @@ router.post('/', (req, res, next) => {
 
   let { content, title, sub_title, auth } = req.body;//拆除body数据
   let time = Date.now();//创建服务器上传时间
-
+  console.log(req.body, 'req.body')
   //multer多图片循环，找到
   let icon, banner;
 
@@ -19,7 +19,7 @@ router.post('/', (req, res, next) => {
     if (file.fieldname === 'icon') {
       icon = configPath.banner.uploadUrl + file.filename + pathLib.parse(file.originalname).ext;
     }
-
+    
     if (file.fieldname === 'banner') {
       banner = configPath.banner.uploadUrl + file.filename + pathLib.parse(file.originalname).ext;
     }
@@ -38,7 +38,7 @@ router.post('/', (req, res, next) => {
 
   mgdb(
     {
-      dbName: 'newsapp',
+      dbName: 'sole',
       collectionName: 'banner'
     },
     (collection, client) => {
@@ -111,7 +111,7 @@ router.patch('/:id', (req, res, next) => {
       }).toArray((err, result) => {
         console.log(result, 9999)
         // result[0] = 库数据
-        if (result.length ===0) { 
+        if (result.length === 0) {
           res.send({ err: 1, msg: '没有对应的id' })
           return;
         }

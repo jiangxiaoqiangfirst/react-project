@@ -7,15 +7,15 @@ let bcrypt = require('bcrypt');
 
 router.post('/', (req, res, next) => {
   //请求方式为post,由路由来定
-  let { username, password, nikename, icon } = req.body;
+  let { username, password, nikename, icon,follow ,fans} = req.body;
 
   // username/password 是必传参数 不传不兜库
   if (!username || !password) {
     res.send({ err: 1, msg: 'username,password为必传参数' });
     return;
   }
-  let follow = 0;
-  let fans = 0;
+  follow = follow || 0;
+  fans = fans || 0;
   let time = Date.now();//生成注册时间
   password = bcrypt.hashSync(password, 10); //给密码加密🔐
   nikename = nikename || '大师兄'; //借助第三方昵称生成库
