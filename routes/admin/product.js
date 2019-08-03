@@ -16,7 +16,7 @@ router.post('/', (req, res, next) => {
   if (eval('/^(' + productAll + ')$/').test(adminname)) {
     let { content, title, des, auth } = req.body;//拆除body数据
     let time = Date.now();//创建服务器上传时间
-    console.log(req.body, 'req.body')
+    // console.log(req.body, 'req.body')
     //multer多图片循环，找到
     let auth_icon;
 
@@ -131,7 +131,7 @@ router.patch('/:id', (req, res, next) => {
       }, {
           projection: { _id: 0 }//显示的key 
         }).toArray((err, result) => {
-          console.log(result, 9999)
+          // console.log(result, 9999)
           // result[0] = 库数据
           if (result.length === 0) {
             res.send({ err: 1, msg: '没有对应的id' })

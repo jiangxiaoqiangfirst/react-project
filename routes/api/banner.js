@@ -5,7 +5,7 @@ let router = express.Router()
 let mgdb = require('../../utils/mgdb')
 
 router.get('/',(req,res,next)=>{
-  console.log('banner')
+  // console.log('banner')
   mgdb({
     url:'mongodb://127.0.0.1:27017',
     dbName:'newsapp',
@@ -26,7 +26,7 @@ router.get('/',(req,res,next)=>{
   })
 })
 router.get('/:_id',(req,res,next)=>{
-  console.log(req.params)
+  // console.log(req.params)
   let _id = req.params._id;
   mgdb({
     url:'mongodb://127.0.0.1:27017',
@@ -36,7 +36,7 @@ router.get('/:_id',(req,res,next)=>{
     collection.find({
       _id:ObjectID(_id)
     }).toArray((err,result)=>{
-      console.log('result',result)
+      // console.log('result',result)
       if(!err){
         res.send({err:1,msg:'查无数据',data:result[0]})
       }

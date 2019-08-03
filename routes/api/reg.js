@@ -84,7 +84,7 @@ router.post('/', (req, res, next) => {
             }, (err, result) => {
               if (!err) {
                 // req.session[key]=result.insertedId
-                console.log(result.ops)
+                // console.log(result.ops)
                 delete result.ops[0].password;
                 res.send({ err: 0, msg: '注册成功', data: result.ops[0] })
               } else {
