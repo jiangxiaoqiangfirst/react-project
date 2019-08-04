@@ -7,7 +7,7 @@ let bcrypt = require('bcrypt');
 
 router.post('/', (req, res, next) => {
   //请求方式为post,由路由来定
-  let { username, password, nikename, icon,follow ,fans} = req.body;
+  let { username, password, nikename, icon, follow, fans,company,telphone } = req.body;
 
   // username/password 是必传参数 不传不兜库
   if (!username || !password) {
@@ -19,6 +19,8 @@ router.post('/', (req, res, next) => {
   let time = Date.now();//生成注册时间
   password = bcrypt.hashSync(password, 10); //给密码加密🔐
   nikename = nikename || '大师兄'; //借助第三方昵称生成库
+  company = company || ''; 
+  telphone = telphone || '';
 
   // console.log('reg',req.file);// multer === dest  req.files   multer ===storage req.file
   //引入路径
@@ -80,7 +82,7 @@ router.post('/', (req, res, next) => {
           } else {
             //通过   返回用户数据  插入库 返回插入后的数据
             collection.insertOne({
-              username, password, nikename, follow, fans, time, icon
+              username, password, nikename, follow, fans, time, icon,company,telphone
             }, (err, result) => {
               if (!err) {
                 // req.session[key]=result.insertedId
