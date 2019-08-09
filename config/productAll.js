@@ -13,5 +13,5 @@ module.exports = [
     'perfume',
     'skin',
     'tool',
-    'user',
+    'user'
 ]

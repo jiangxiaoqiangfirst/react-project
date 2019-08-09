@@ -71,6 +71,8 @@ app.use('/api/user', require('./routes/api/user'));
 app.use('/api/logout', require('./routes/api/logout'));
 app.use('/api/:product', require('./routes/api/product'));
 // app.use('/api/banner', require('./routes/api/banner'));
+// 购物车的接口
+app.use('/api/shopcar', require('./routes/api/shopcar'));
 
 //PROXY
 app.use('/proxy/douban', require('./routes/proxy/douban'))
