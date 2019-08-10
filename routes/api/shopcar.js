@@ -51,8 +51,7 @@ router.post('/', (req, res, next) => {
                         (err1, result1) => {
                             if (!err1) {
                                 // res.send({ error: 0, mess: '成功', data:  result.result.ops[0] })
-                                console.log(result1,'result')
-                                // res.send({ err: 0, msg: '成功', detail:detail })
+                                res.send({ err: 0, msg: '成功', detail:detail })
 
                             } else {
                                 res.send({ err: 1, msg: '添加失败' })
@@ -60,8 +59,6 @@ router.post('/', (req, res, next) => {
                             client.close();
                         }
                     )
-                    res.send({ err: 0, msg: '新添加数据' })
-                    client.close();
                 }
             } else {
                 res.send({ err: 1, msg: '服务器发生错误' })
