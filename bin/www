@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('nodeobj:server');
 
 
+
 var config = require('../config/server')
 
 var http,port,server;
@@ -21,13 +22,14 @@ if(config.local.open){
   port=config.http.port;
   server = http.createServer(app);
 }else if(config.https.open){
-  /* http = require('https');
-  port=config.https.port;
-  var options = {
-    key: fs.readFileSync('./bin/1826016_uncle9.top.key'),
-    cert: fs.readFileSync('./bin/1826016_uncle9.top.pem'),
-  };
-  server = http.createServer(options,app); */
+  // http = require('https');
+  // const fs = require('fs');
+  // port=config.https.port;
+  // var options = {
+  //   key: fs.readFileSync('./bin/2656947_mochangba.top.key'),
+  //   cert: fs.readFileSync('./bin/2656947_mochangba.top.pem'),
+  // };
+  // server = http.createServer(options,app);
 }
 
 app.set('port', port);
